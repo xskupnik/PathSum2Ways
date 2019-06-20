@@ -11,16 +11,21 @@ and down.
  */
 package com.dohnalovar;
 
+import com.dohnalovar.matrix.LeastPath;
+import com.dohnalovar.matrix.Matrix;
+
 public class Main {
 
     public static void main(String[] args) {
 
 
-        MATRIX x = MATRIX.getInstance();
-        System.out.println(x.get(0,0) + " ... " + x.get(x.getSize()-1, x.getSize()-1));
+        Matrix x = new Matrix("p081_matrix.txt");
+        //System.out.println(x.get(0,0) + " ... " + x.get(x.getSize()-1, x.getSize()-1));
 
-        System.out.println("\n"+x.findLeastTwoWayPath(0,0));
+        LeastPath lp = x.getSubPath(0, 0);
+        System.out.println("from position (0,0) " + lp.toString());
 
-
+        lp = x.getSubPath(x.getSize()-2, x.getSize()-2);
+        System.out.println("from position (78,78) " + lp.toString());
     }
 }
