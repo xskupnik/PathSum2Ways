@@ -21,24 +21,25 @@ public class Main {
 
     public static void main(String[] args) {
 
+        LeastPath lp;
 
         LeastPathCounter x = new LeastPathCounter(
              new HashSet<>(Arrays.asList('R', 'D')),
             0, 0, 79, 79
         );
 
-        LeastPath lp = x.getSubPath(0, 0);
+        lp = x.getSubPath(0, 0);
         System.out.println("from position (0,0) " + lp.toString());
 
         lp = x.getSubPath(78, 78);
         System.out.println("from position (78,78) " + lp.toString());
-/*
+
         LeastPathCounter y = new LeastPathCounter(
             new HashSet<>(Arrays.asList('L', 'U')),
-            2, 2, 0, 0
+            3, 3, 2, 2
         );
-        LeastPath lp = y.getSubPath(2, 2);
-        System.out.println("from position (2,2) " + lp.toString());
-*/
+        lp = y.getSubPath(3, 3);
+        System.out.println("from position (3,3) " + lp.toString());
+
     }
 }

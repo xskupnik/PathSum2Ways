@@ -123,36 +123,36 @@ public class LeastPathCounter {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(-1);
         }
         return sum;
     }
 
 
-    public LeastPathCounter(Set<Character> way, int ... position) {
+    public LeastPathCounter(Set<Character> way, int startI, int startJ, int endI, int endJ) {
         try {
 
             int size = table.getSize();
 
             //check input parameters
-            if (position.length < 4)
-                throw new Exception("4 position integers are expected.");
-            for (int i = 0; i < 4; i++) {
-                if (position[i] < 0 || position[i] > (size-1))
-                    throw new Exception("Position ints must be between 0 and "+ (size-1));
-            }
-            rowMax = !way.contains('U') ? position[2] : (table.getSize()-1);
-            rowMin = !way.contains('D') ? position[2] : 0;
-            colMax = !way.contains('L') ? position[3] : (table.getSize()-1);
-            colMin = !way.contains('R') ? position[3] : 0;
+            if (startI < 0 || endI < 0 || startI > (size-1) || endI > (size-1) ||
+                startJ < 0 || endJ < 0 || startJ > (size-1) || endJ > (size-1))
+                throw new Exception("Start and End positions must be between 0 and "+(size-1));
 
-            if (rowMin > position[0] && position[0] > rowMax)
-                throw new Exception("Start I position must be between " + rowMin + " and " + rowMax);
-            if (colMin > position[1] || position[1] > colMax)
-                throw new Exception("Start J position must be between " + colMin + " and " + colMax);
+
+            rowMax = way.contains('U') ? (table.getSize()-1) : endI;
+            rowMin = way.contains('D') ? 0 : endI;
+            colMax = way.contains('L') ? (table.getSize()-1) : endJ;
+            colMin = way.contains('R') ? 0 : endJ;
+
+            if (!(rowMin <= startI && startI <= rowMax))
+                throw new Exception("StartI position must be between " + rowMin + " and " + rowMax);
+            if (!(colMin <= startJ && startJ <= colMax))
+                throw new Exception("StartJ position must be between " + colMin + " and " + colMax);
 
             // set start and target position
-            this.from = new Position(position[0], position[1]);
-            this.to = new Position(position[2], position[3]);
+            this.from = new Position(startI, startJ);
+            this.to = new Position(endI, endJ);
 
             // initialize calculating table
             for (int i = 0; i < size; i++) {
@@ -166,7 +166,9 @@ public class LeastPathCounter {
             findLeastPath(from.i, from.j, way);
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(-1);
         }
+
     }
 
     @Override
